@@ -4,11 +4,14 @@ from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
-class UserRegisterForm(forms.ModelForm):
-    confirm_password = forms.CharField()
-    class Meta:
-        model = User
-        fields = ["name","family","address","description","email","password","confirm_password"]
+class UserRegisterForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    family = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    address = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    description = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
+    password = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    confirm_password = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 
     def clean(self):
         cleaned_data = super().clean()
