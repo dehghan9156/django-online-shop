@@ -9,6 +9,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 
 
-class TestView(View):
+class RegisterUserView(View):
     def get(self,request):
-        return HttpResponse("test")
+        pass 

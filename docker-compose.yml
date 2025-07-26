@@ -14,7 +14,7 @@ services:
       - postgres_data:/var/lib/postgresql/data  
   web:
     build: .
-    command: sh -c "python manage.py migrate && gunicorn djangoonlineshop.wsgi -b 0.0.0.0:8001"
+    command: sh -c "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn djangoonlineshop.wsgi -b 0.0.0.0:8001"
     volumes:
       - .:/web/
     depends_on:
