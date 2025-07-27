@@ -8,7 +8,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 from .forms import *
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
+
+
+
 
 class RegisterUserView(View):
     print("test view")
@@ -44,3 +47,8 @@ class LoginUserView(View):
             messages.error(request,"email or password is not correct","error")
 
         return render(request,"accounts/user-login.html",{"form":form})
+
+class LogoutUserView(View):
+    def get(self,request):
+        logout(request)
+        return redirect("accounts:login-user")
