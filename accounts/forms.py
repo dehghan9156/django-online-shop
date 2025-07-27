@@ -20,3 +20,7 @@ class UserRegisterForm(forms.Form):
         if password and confirm_password and password != confirm_password:
             raise ValidationError("Passwords do not match.")
         return cleaned_data
+
+class UserLoginForm(forms.Form):
+    email = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    password = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))

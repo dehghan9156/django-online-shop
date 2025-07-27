@@ -1,6 +1,6 @@
 FROM python:3.10
 
-WORKDIR /code
+WORKDIR /web
 
 COPY requirements.txt .
 
@@ -8,7 +8,7 @@ RUN pip install -U pip
 RUN pip install -r requirements.txt
 
 
-COPY . /code/
+COPY . /web/
 
 EXPOSE 8001
 
