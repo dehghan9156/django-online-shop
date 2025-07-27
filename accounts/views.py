@@ -51,4 +51,5 @@ class LoginUserView(View):
 class LogoutUserView(View):
     def get(self,request):
         logout(request)
+        messages.success(request,"user logout successfully.","success")
         return redirect("accounts:login-user")
