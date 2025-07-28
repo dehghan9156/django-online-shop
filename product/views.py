@@ -59,3 +59,9 @@ class AddProductView(View):
             messages.error(request,"form is not valid.","error")
         
         return render(request,"product/add.html",{"form":form})
+
+class CategoryProductView(View):
+    def get(self,request,pk):
+        category = Category.objects.get(pk=pk)
+        products = Product.objects.filter(category=category)
+        return render(request,"product/product-category.html",{"products":products})
