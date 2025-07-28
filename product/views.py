@@ -9,6 +9,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from .models import *
+from .forms import *
+from django.urls import reverse_lazy,reverse
 
 class HomeView(View):
     def get(self,request):
@@ -19,3 +21,17 @@ class DetailView(View):
     def get(self,request,pk):
         product = Product.objects.get(pk=pk)
         return render(request,"product/detail.html",{"product":product})
+
+class EditView(UpdateView):
+    form_class = ProductCreateUpdateForm
+    model = Product
+    template_name = "product/update.html"
+
+    def get_success_url(self):
+        return reverse("product:detail", kwargs={"pk": self.object.pk})
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            messages.error(request, 'You cannot edit product', 'error')
+            return redirect("product:product-list")
+        return super().dispatch(request, *args, **kwargs)

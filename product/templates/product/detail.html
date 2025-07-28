@@ -34,16 +34,19 @@
 
                         <div class="mb-3">
                             {% if product.quantity > 0 %}
-                                <span class="badge bg-success fs-6 px-3 py-2">✅ Available</span>
+                                <span class="badge rounded-pill bg-success fs-6 px-4 py-2">
+                                    ✅ In Stock: {{ product.quantity }}
+                                </span>
                             {% else %}
-                                <span class="badge bg-danger fs-6 px-3 py-2">❌ Unavailable</span>
+                                <span class="badge rounded-pill bg-danger fs-6 px-4 py-2">
+                                    ❌ Out of Stock
+                                </span>
                             {% endif %}
                         </div>
-
                         <!-- دکمه‌ها -->
                         <div class="mt-4 d-flex flex-wrap gap-3">
                             {% if request.user.is_staff %}
-                                <a href="#" class="btn btn-warning px-4 py-2 rounded shadow-sm">✏️ Edit Product</a>
+                                <a href="{%url "product:edit" product.pk%}" class="btn btn-warning px-4 py-2 rounded shadow-sm">✏️ Edit Product</a>
                                 <a href="#" class="btn btn-danger px-4 py-2 rounded shadow-sm">🗑️ Delete Product</a>
                             {% endif %}
                           
