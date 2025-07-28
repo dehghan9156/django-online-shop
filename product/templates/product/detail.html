@@ -46,8 +46,8 @@
                         <!-- دکمه‌ها -->
                         <div class="mt-4 d-flex flex-wrap gap-3">
                             {% if request.user.is_staff %}
-                                <a href="{%url "product:edit" product.pk%}" class="btn btn-warning px-4 py-2 rounded shadow-sm">✏️ Edit Product</a>
-                                <a href="{%url "product:delete" product.pk%}" class="btn btn-danger px-4 py-2 rounded shadow-sm">🗑️ Delete Product</a>
+                                <a href="{%url "product:edit-product" product.pk%}" class="btn btn-warning px-4 py-2 rounded shadow-sm">✏️ Edit Product</a>
+                                <a href="{%url "product:delete-product" product.pk%}" class="btn btn-danger px-4 py-2 rounded shadow-sm">🗑️ Delete Product</a>
                             {% endif %}
                           
                             {% comment %} <form action="{% url 'orders:create-factor' product.pk %}" method="post">

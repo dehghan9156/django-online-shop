@@ -76,10 +76,10 @@
   </nav>
 
   <!-- Page Content -->
-   {% include "messages.html" %}
   <main class="container" style="margin-top: 90px;">
-    {% block content %}{% endblock %}
-  </main>
+      {% include "messages.html" %}
+      {% block content %}{% endblock %}
+    </main>
 
   <!-- Footer -->
   <footer class="bg-dark text-white text-center py-4 mt-5">

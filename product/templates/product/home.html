@@ -6,7 +6,7 @@
   
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" style="margin:15px;">
     {% for pro in products %}
-    <a href={%url "product:detail" pro.pk%} style="text-decoration: none;">
+    <a href={%url "product:detail-product" pro.pk%} style="text-decoration: none;">
         <div class="col">
         <div class="card h-100 border-0 shadow-lg rounded-4 hover-shadow">
             <img src="{{ pro.image }}" class="card-img-top rounded-top-4" alt="{{ pro.name }}" style="height: 220px; object-fit: cover;">

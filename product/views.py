@@ -17,12 +17,12 @@ class HomeView(View):
         products = Product.objects.all()
         return render(request,"product/home.html",{"products":products})
 
-class DetailView(View):
+class DetailProductView(View):
     def get(self,request,pk):
         product = Product.objects.get(pk=pk)
         return render(request,"product/detail.html",{"product":product})
 
-class EditView(UpdateView):
+class EditProductView(UpdateView):
     form_class = ProductCreateUpdateForm
     model = Product
     template_name = "product/update.html"
@@ -36,7 +36,7 @@ class EditView(UpdateView):
             return redirect("product:product-list")
         return super().dispatch(request, *args, **kwargs)
 
-class DeleteView(DeleteView):
+class DeleteProductView(DeleteView):
     model = Product
     template_name = "product/delete.html"
     success_url = reverse_lazy("product:home")
@@ -44,3 +44,18 @@ class DeleteView(DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, "Product deleted successfully.","success")
         return super().delete(request, *args, **kwargs)
+
+class AddProductView(View):
+    def get(self,request):
+        form = ProductCreateUpdateForm()
+        return render(request,"product/add.html",{"form":form})
+    def post(self,request):
+        form = ProductCreateUpdateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"your product add successfully.","success")
+            return redirect("product:home")
+        else:
+            messages.error(request,"form is not valid.","error")
+        
+        return render(request,"product/add.html",{"form":form})
