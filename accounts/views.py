@@ -41,7 +41,7 @@ class LoginUserView(View):
             user = authenticate(request,username=cd["email"], password=cd["password"])
             if user is not None :
                 login(request, user)
-                return redirect("/")
+                return redirect("product:home")
             messages.error(request,"user with this email is not found","error")
         else:
             messages.error(request,"email or password is not correct","error")

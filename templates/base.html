@@ -55,7 +55,22 @@
           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
             {{ cart_item_count|default:"0" }}
           </span>
-        </a>
+        </a>  
+<!-- داخل Navbar در جای دکمه‌ها: -->
+        <div class="d-flex align-items-center gap-2 ms-3">
+          {% if request.user.is_authenticated %}
+            <a href="{% url 'accounts:logout-user' %}" class="btn btn-outline-danger d-flex align-items-center gap-2">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+          {% else %}
+            <a href="{% url 'accounts:login-user' %}" class="btn btn-outline-light d-flex align-items-center gap-2">
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            </a>
+            <a href="{% url 'accounts:register-user' %}" class="btn btn-light d-flex align-items-center gap-2">
+              <i class="bi bi-person-plus"></i> Register
+            </a>
+          {% endif %}
+        </div>
       </div>
     </div>
   </nav>
