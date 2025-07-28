@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-5 text-center fw-bold">🛒 Our Products</h1>
+  
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" style="margin:15px;">
+    {% for pro in products %}
+    <div class="col">
+      <div class="card h-100 border-0 shadow-lg rounded-4 hover-shadow">
+        <img src="{{ pro.image }}" class="card-img-top rounded-top-4" alt="{{ pro.name }}" style="height: 220px; object-fit: cover;">
+        
+        <div class="card-body">
+          <h5 class="card-title fw-semibold text-primary">{{ pro.name }}</h5>
+          <p class="text-muted mb-1">Color: <span class="text-dark">{{ pro.color }}</span></p>
+          
+          <p class="mb-1">
+            Price:
+            <span class="fw-bold text-danger">
+              {{ pro.price|intcomma }} Toman
+            </span>
+          </p>
+          
+          {% if pro.discount > 0 %}
+          <p class="mb-1">
+            Discount:
+            <span class="fw-bold text-success">{{ pro.discount }}%</span>
+          </p>
+          {% endif %}
+          
+          <p class="mb-1">Quantity: <span class="text-dark">{{ pro.quantity }}</span></p>
+          <p class="mb-0">Category: <span class="badge bg-secondary">{{ pro.category }}</span></p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .hover-shadow:hover {
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+  }
+</style>
+{% endblock %}
