@@ -35,3 +35,12 @@ class EditView(UpdateView):
             messages.error(request, 'You cannot edit product', 'error')
             return redirect("product:product-list")
         return super().dispatch(request, *args, **kwargs)
+
+class DeleteView(DeleteView):
+    model = Product
+    template_name = "product/delete.html"
+    success_url = reverse_lazy("product:home")
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, "Product deleted successfully.","success")
+        return super().delete(request, *args, **kwargs)
