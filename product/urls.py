@@ -8,5 +8,6 @@ app_name = "product"
 
 urlpatterns = [
     path("",views.HomeView.as_view(),name="home"),
+    path("detail/<int:pk>/",views.DetailView.as_view(),name="detail"),
     
 ]

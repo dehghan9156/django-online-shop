@@ -14,3 +14,8 @@ class HomeView(View):
     def get(self,request):
         products = Product.objects.all()
         return render(request,"product/home.html",{"products":products})
+
+class DetailView(View):
+    def get(self,request,pk):
+        product = Product.objects.get(pk=pk)
+        return render(request,"product/detail.html",{"product":product})

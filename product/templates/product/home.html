@@ -6,33 +6,35 @@
   
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" style="margin:15px;">
     {% for pro in products %}
-    <div class="col">
-      <div class="card h-100 border-0 shadow-lg rounded-4 hover-shadow">
-        <img src="{{ pro.image }}" class="card-img-top rounded-top-4" alt="{{ pro.name }}" style="height: 220px; object-fit: cover;">
-        
-        <div class="card-body">
-          <h5 class="card-title fw-semibold text-primary">{{ pro.name }}</h5>
-          <p class="text-muted mb-1">Color: <span class="text-dark">{{ pro.color }}</span></p>
-          
-          <p class="mb-1">
-            Price:
-            <span class="fw-bold text-danger">
-              {{ pro.price|intcomma }} Toman
-            </span>
-          </p>
-          
-          {% if pro.discount > 0 %}
-          <p class="mb-1">
-            Discount:
-            <span class="fw-bold text-success">{{ pro.discount }}%</span>
-          </p>
-          {% endif %}
-          
-          <p class="mb-1">Quantity: <span class="text-dark">{{ pro.quantity }}</span></p>
-          <p class="mb-0">Category: <span class="badge bg-secondary">{{ pro.category }}</span></p>
+    <a href={%url "product:detail" pro.pk%} style="text-decoration: none;">
+        <div class="col">
+        <div class="card h-100 border-0 shadow-lg rounded-4 hover-shadow">
+            <img src="{{ pro.image }}" class="card-img-top rounded-top-4" alt="{{ pro.name }}" style="height: 220px; object-fit: cover;">
+            
+            <div class="card-body">
+            <h5 class="card-title fw-semibold text-primary">{{ pro.name }}</h5>
+            <p class="text-muted mb-1">Color: <span class="text-dark">{{ pro.color }}</span></p>
+            
+            <p class="mb-1">
+                Price:
+                <span class="fw-bold text-danger">
+                {{ pro.price|intcomma }} Toman
+                </span>
+            </p>
+            
+            {% if pro.discount > 0 %}
+            <p class="mb-1">
+                Discount:
+                <span class="fw-bold text-success">{{ pro.discount }}%</span>
+            </p>
+            {% endif %}
+            
+            <p class="mb-1">Quantity: <span class="text-dark">{{ pro.quantity }}</span></p>
+            <p class="mb-0">Category: <span class="badge bg-secondary">{{ pro.category }}</span></p>
+            </div>
         </div>
-      </div>
-    </div>
+        </div>
+    </a>
     {% endfor %}
   </div>
 </div>

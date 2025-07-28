@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0 rounded-4 p-5 bg-light">
+                <div class="row gy-5 align-items-center">
+
+                    <!-- تصویر محصول -->
+                    <div class="col-md-5 text-center">
+                        <img src="{{ product.image }}" alt="{{ product.name }}"
+                             class="img-fluid rounded-4 shadow"
+                             style="max-height: 420px; object-fit: cover; border: 1px solid #ddd;">
+                    </div>
+
+                    <!-- جزئیات محصول -->
+                    <div class="col-md-7">
+                        <h2 class="fw-bold text-dark mb-3">{{ product.name }}</h2>
+
+                        <div class="mb-2 text-muted">
+                            <strong>Color:</strong> {{ product.color }}
+                        </div>
+                        <div class="mb-2 text-muted">
+                            <strong>Category:</strong> {{ product.category }}
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3 my-3">
+                            <h3 class="fw-bold text-danger">{{ product.price|intcomma }} Tomans</h3>
+                            {% if product.discount > 0 %}
+                                <span class="badge bg-success fs-6 px-3 py-2">Discount {{ product.discount }}%</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            {% if product.quantity > 0 %}
+                                <span class="badge bg-success fs-6 px-3 py-2">✅ Available</span>
+                            {% else %}
+                                <span class="badge bg-danger fs-6 px-3 py-2">❌ Unavailable</span>
+                            {% endif %}
+                        </div>
+
+                        <!-- دکمه‌ها -->
+                        <div class="mt-4 d-flex flex-wrap gap-3">
+                            {% if request.user.is_staff %}
+                                <a href="#" class="btn btn-warning px-4 py-2 rounded shadow-sm">✏️ Edit Product</a>
+                                <a href="#" class="btn btn-danger px-4 py-2 rounded shadow-sm">🗑️ Delete Product</a>
+                            {% endif %}
+                          
+                            {% comment %} <form action="{% url 'orders:create-factor' product.pk %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-primary px-4 py-2 rounded shadow-sm">🛒 Add to Factor</button>
+                            </form> 
+                         {% endcomment %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+    }
+
+    .btn-warning {
+        background-color: #ffa502;
+        border: none;
+        color: #fff;
+    }
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+    }
+
+    .btn-danger {
+        background-color: #e74c3c;
+        border: none;
+        color: #fff;
+    }
+
+    .btn-danger:hover {
+        background-color: #c0392b;
+    }
+</style>
+{% endblock %}
