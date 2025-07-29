@@ -17,7 +17,18 @@ class AddProductView(LoginRequiredMixin,View):
     def post(self,request,pk):
         product = get_object_or_404(Product,pk=pk)
         header_factor,created = HeaderFactor.objects.get_or_create(user=request.user)
-        factor = Factor.objects.create(product=product,header_factor=header_factor)
+        factor = Factor.objects.filter(header_factor=header_factor,product=product).first()
+        if not factor:
+            Factor.objects.create(header_factor=header_factor,product=product,quantity=1)
+        else:
+            factor.quantity += 1
+            factor.save()
+
         messages.success(request,"product add successfully","success")
         return redirect("product:detail-product",pk=pk)
     
+class ShowFactorView(View):
+    def get(self,request):
+        header_factor = HeaderFactor.objects.get(user=request.user)
+        factors = Factor.objects.filter(header_factor=header_factor)
+        return render(request,"order/factor.html",{"header_factor":header_factor,"factors":factors})

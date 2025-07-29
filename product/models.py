@@ -14,3 +14,6 @@ class Product(models.Model):
     quantity = models.IntegerField()
     discount = models.PositiveIntegerField(default=0)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name}"
