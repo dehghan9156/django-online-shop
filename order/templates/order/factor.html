@@ -89,7 +89,10 @@
                                 <input type="hidden" name="factor_id" value="{{ fac.id }}">
                                 <input type="number" name="quantity" value="{{ fac.quantity }}" class="form-control text-center quantity-input" min="1" onchange="this.form.submit()">
                             </form>
-                            <a href="#" class="btn btn-danger ms-3">Delete</a>
+                            <form method="post" action={% url "order:delete-product" fac.id%}> 
+                              {%csrf_token%}
+                              <button type="submit" class="btn btn-danger ms-3">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>

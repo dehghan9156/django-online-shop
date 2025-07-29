@@ -32,3 +32,14 @@ class ShowFactorView(View):
         header_factor = HeaderFactor.objects.get(user=request.user)
         factors = Factor.objects.filter(header_factor=header_factor)
         return render(request,"order/factor.html",{"header_factor":header_factor,"factors":factors})
+    
+class DeleteProductFactorView(View):
+    def post(self,request,pk):
+        try:
+            header_factor = HeaderFactor.objects.get(user= request.user)
+            factor = Factor.objects.get(header_factor=header_factor,pk=pk)
+            factor.delete()
+            messages.success(request,"your product delete from factor successfully","success")
+            return redirect("order:show-factor")
+        except Factor.DoesNotExist:
+            messages.error(request,"product not found","error")

@@ -10,4 +10,5 @@ app_name="order"
 urlpatterns = [
     path("add/product/<int:pk>/",views.AddProductView.as_view(),name="add-product-order"),
     path("show/factor/",views.ShowFactorView.as_view(),name="show-factor"),
+    path("delete/product/<int:pk>/",views.DeleteProductFactorView.as_view(),name="delete-product"),
 ]
