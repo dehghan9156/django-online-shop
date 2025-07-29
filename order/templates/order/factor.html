@@ -76,7 +76,7 @@
                         <!-- نمایش اطلاعات محصول -->
                         <div class="flex-grow-1 product-info">
                             <h5>{{ fac.product.name }}</h5>
-                            <p>Price: <strong>${{ factor.product.price }}</strong></p>
+                            <p>Price: <strong>${{ fac.product.price }}</strong></p>
                             {% if fac.product.discount %}
                                 <p class="discount-text">Discount: ${{ fac.product.discount }}</p>
                             {% endif %}
@@ -84,7 +84,7 @@
 
                         <!-- فرم ویرایش تعداد -->
                         <div class="d-flex align-items-center">
-                            <form method="post" class="d-flex align-items-center" action="#">
+                            <form method="post" class="d-flex align-items-center" action="{%url "order:update-factor" fac.id%}">
                                 {% csrf_token %}
                                 <input type="hidden" name="factor_id" value="{{ fac.id }}">
                                 <input type="number" name="quantity" value="{{ fac.quantity }}" class="form-control text-center quantity-input" min="1" onchange="this.form.submit()">

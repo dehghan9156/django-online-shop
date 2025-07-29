@@ -43,3 +43,13 @@ class DeleteProductFactorView(View):
             return redirect("order:show-factor")
         except Factor.DoesNotExist:
             messages.error(request,"product not found","error")
+
+class UpdateFactorView(View):
+    def post(self,request,pk):
+        header_factor = HeaderFactor.objects.get(user=request.user)
+        factor = Factor.objects.get(header_factor=header_factor,pk=pk)
+        factor.quantity +=1
+        factor.save()
+        messages.success(request,"quantity product updated","success")
+        return redirect("order:show-factor")
+    
