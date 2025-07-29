@@ -1,0 +1,116 @@
+{%extends "base.html"%}
+{% block content %}
+<style>
+  .product-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  .product-card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+  .product-image {
+    max-width: 150px;
+    border-radius: 8px;
+    margin-right: 20px;
+    object-fit: cover;
+  }
+  .product-info h5 {
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .product-info p {
+    margin: 0;
+    font-size: 16px;
+  }
+  .discount-text {
+    color: #e74c3c;
+    font-weight: 600;
+  }
+  .quantity-input {
+    max-width: 60px;
+  }
+  .btn-danger {
+    min-width: 80px;
+  }
+  .order-summary {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  }
+  .order-summary h4 {
+    font-weight: 700;
+    color: #2c3e50;
+  }
+  .order-summary p {
+    font-size: 18px;
+  }
+  .order-summary .text-success {
+    font-size: 20px;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+</style>
+
+<div class="container my-5">
+    <div class="row">
+        <!-- لیست محصولات در سبد خرید -->
+        <div class="col-md-8">
+            {% for fac in factor %}
+                <div class="col-md-12 mb-4">
+                    <div class="d-flex align-items-center product-card bg-light">
+                        <!-- تصویر محصول -->
+                        <img src="{{ fac.product.image}}" class="product-image img-fluid" alt="{{ fac.product.name }}">
+
+                        <!-- نمایش اطلاعات محصول -->
+                        <div class="flex-grow-1 product-info">
+                            <h5>{{ fac.product.name }}</h5>
+                            <p>Price: <strong>${{ factor.product.price }}</strong></p>
+                            {% if fac.product.discount %}
+                                <p class="discount-text">Discount: ${{ fac.product.discount }}</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- فرم ویرایش تعداد -->
+                        <div class="d-flex align-items-center">
+                            <form method="post" class="d-flex align-items-center" action="#">
+                                {% csrf_token %}
+                                <input type="hidden" name="factor_id" value="{{ fac.id }}">
+                                <input type="number" name="quantity" value="{{ fac.quantity }}" class="form-control text-center quantity-input" min="1" onchange="this.form.submit()">
+                            </form>
+                            <a href="#" class="btn btn-danger ms-3">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+
+        <!-- کادر کنار برای نمایش مجموع قیمت -->
+        <div class="col-md-4">
+            <div class="order-summary shadow-lg p-3">
+                <h4 class="text-center mb-3">Order Summary</h4>
+                <hr>
+                {% comment %} <p><strong>Total Price:</strong> ${{ total_factor }}</p> {% endcomment %}
+                {% comment %} <p class="text-danger"><strong>Transport Cost:</strong> $52000+{{ total_factor }}</p> {% endcomment %}
+                {% comment %} <h5 class="text-success"><strong>Final Price:</strong> ${{ final_price }}</h5> {% endcomment %}
+                <hr>
+                <div class="d-grid">
+                    <a href="#" class="btn btn-primary btn-lg">Complete Payment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
