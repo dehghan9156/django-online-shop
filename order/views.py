@@ -31,7 +31,14 @@ class ShowFactorView(View):
     def get(self,request):
         header_factor = HeaderFactor.objects.get(user=request.user)
         factors = Factor.objects.filter(header_factor=header_factor)
-        return render(request,"order/factor.html",{"header_factor":header_factor,"factors":factors})
+        lst = []
+        for factor in factors:
+            lst.append(factor.total_price)
+        total_factor = sum(lst)
+        final_factor = total_factor + 52000    
+        print(final_factor)
+        return render(request,"order/factor.html",{"header_factor":header_factor,"factors":factors,"final_factor":final_factor,"total_factor":total_factor})
+    
     
 class DeleteProductFactorView(View):
     def post(self,request,pk):
@@ -48,7 +55,8 @@ class UpdateFactorView(View):
     def post(self,request,pk):
         header_factor = HeaderFactor.objects.get(user=request.user)
         factor = Factor.objects.get(header_factor=header_factor,pk=pk)
-        factor.quantity +=1
+        quantity = request.POST.get("quantity")
+        factor.quantity = quantity
         factor.save()
         messages.success(request,"quantity product updated","success")
         return redirect("order:show-factor")

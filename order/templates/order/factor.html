@@ -80,6 +80,7 @@
                             {% if fac.product.discount %}
                                 <p class="discount-text">Discount: ${{ fac.product.discount }}</p>
                             {% endif %}
+                            {% comment %} <p>{{fac.total_price}}</p> {% endcomment %}
                         </div>
 
                         <!-- فرم ویرایش تعداد -->
@@ -105,12 +106,12 @@
             <div class="order-summary shadow-lg p-3">
                 <h4 class="text-center mb-3">Order Summary</h4>
                 <hr>
-                {% comment %} <p><strong>Total Price:</strong> ${{ total_factor }}</p> {% endcomment %}
-                {% comment %} <p class="text-danger"><strong>Transport Cost:</strong> $52000+{{ total_factor }}</p> {% endcomment %}
-                {% comment %} <h5 class="text-success"><strong>Final Price:</strong> ${{ final_price }}</h5> {% endcomment %}
+                <p><strong>Total Price:</strong> ${{ total_factor }}</p> 
+                <p class="text-danger"><strong>Transport Cost:</strong> $52000+{{ total_factor }}</p>
+                <h5 class="text-success"><strong>Final Price:</strong>{{ final_factor }}</h5>
                 <hr>
                 <div class="d-grid">
-                    <a href="#" class="btn btn-primary btn-lg">Complete Payment</a>
+                  <a href="#" class="btn btn-primary btn-lg">Complete Payment</a>
                 </div>
             </div>
         </div>
