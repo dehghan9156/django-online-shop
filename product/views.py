@@ -11,6 +11,8 @@ from django.contrib.auth import authenticate,login,logout
 from .models import *
 from .forms import *
 from django.urls import reverse_lazy,reverse
+from django.db.models import Q
+
 
 class HomeView(View):
     def get(self,request):
@@ -65,3 +67,18 @@ class CategoryProductView(View):
         category = Category.objects.get(pk=pk)
         products = Product.objects.filter(category=category)
         return render(request,"product/product-category.html",{"products":products})
+
+class SearchView(View):
+    def get(self, request):
+        query = request.GET.get('q', '').strip()  # حذف فاصله‌های اضافی
+        print(query)
+        results = Product.objects.all()
+
+        if query:
+            results = results.filter(name__icontains=query)
+
+        context = {
+            'results': results,
+            'query': query,
+        }
+        return render(request, 'product/search_results.html', context)
