@@ -111,7 +111,7 @@
                 <h5 class="text-success"><strong>Final Price:</strong>{{ final_factor }}</h5>
                 <hr>
                 <div class="d-grid">
-                  <a href="#" class="btn btn-primary btn-lg">Complete Payment</a>
+                  <a href="{%url "order:payment" header_factor.pk %}" class="btn btn-primary btn-lg">Complete Payment</a>
                 </div>
             </div>
         </div>

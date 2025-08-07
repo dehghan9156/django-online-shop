@@ -53,7 +53,7 @@
 
 
           <li class="nav-item"><a class="nav-link" href="#">New Products</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Special Offers</a></li>
+          {% comment %} <li class="nav-item"><a class="nav-link" href="#">Special Offers</a></li> {% endcomment %}
           {%if request.user.is_staff%}
             <li class="nav-item"><a class="nav-link" href="{%url "product:add-product"%}">Add Product</a></li>
           {%endif%}
@@ -66,9 +66,9 @@
 
         <a href="{%url "order:show-factor"%}" class="btn btn-outline-light ms-3 position-relative">
           🛒
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {% comment %} <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
             {{ cart_item_count|default:"0" }}
-          </span>
+          </span> {% endcomment %}
         </a>  
 <!-- داخل Navbar در جای دکمه‌ها: -->
         <div class="d-flex align-items-center gap-2 ms-3">
